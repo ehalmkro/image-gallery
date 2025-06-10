@@ -33,13 +33,15 @@ function App() {
   const photos = data.pages.flat()
 
   return (
-    <div className="flex flex-col items-center">
-      <PhotoGrid photoList={photos}/>
+    <div className="flex flex-col items-center min-h-screen">
+      <div className="w-full max-w-7xl px-4 py-8">
+        <PhotoGrid photoList={photos}/>
+      </div>
       {hasNextPage && (
         <button 
           onClick={() => fetchNextPage()}
           disabled={isFetchingNextPage}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
+          className="mt-4 mb-8 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
         >
           {isFetchingNextPage ? 'Loading...' : 'Load More Photos'}
         </button>
