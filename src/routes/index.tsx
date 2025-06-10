@@ -3,6 +3,8 @@ import { ImageService } from '../services/image-service'
 import { useSuspenseInfiniteQuery, useQueryClient } from '@tanstack/react-query'
 import { PhotoGrid } from '@/components/PhotoGrid'
 
+const PAGE_SIZE = 60
+
 export const Route = createFileRoute('/')({
   component: App,
 })
@@ -14,7 +16,7 @@ function App() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery({
     queryKey: ['photos'],
     queryFn: async ({ pageParam }) => {
-      const photos = await imageService.getPhotosPaginated(pageParam, 50)
+      const photos = await imageService.getPhotosPaginated(pageParam, PAGE_SIZE)
       
       // Populate individual photo queries
       photos.forEach(photo => {
@@ -25,7 +27,7 @@ function App() {
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage, _, lastPageParam) => {
-      return lastPage.length === 50 ? lastPageParam + 1 : undefined
+      return lastPage.length === PAGE_SIZE ? lastPageParam + 1 : undefined
     },
   })
 
