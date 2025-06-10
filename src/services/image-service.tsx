@@ -31,4 +31,17 @@ export class ImageService {
         picsumThumbnailUrl: `${this.PICSUM_URL}/id/${picsumId}/150`
     }})
   }
+
+  async getPhoto(id: string): Promise<PhotoWithPicsum> {
+    const response = await fetch(`${this.JSON_PLACEHOLDER_URL}/${id}`)
+    const photo: Photo = await response.json()
+    const picsumId = photo.id % 999
+    return {
+      ...photo,
+      jsonPlaceholderId: photo.id,
+      picsumId,
+      picsumUrl: `${this.PICSUM_URL}/id/${picsumId}/720`,
+      picsumThumbnailUrl: `${this.PICSUM_URL}/id/${picsumId}/150`
+    }
+  }
 }
