@@ -1,51 +1,28 @@
 import { createFileRoute } from '@tanstack/react-router'
-import logo from '../logo.svg'
 import { ImageService } from '../services/image-service'
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
+import { PhotoGrid } from '@/components/PhotoGrid'
 
 export const Route = createFileRoute('/')({
   component: App,
 })
 
 function App() {
-
   const imageService = new ImageService()
 
-  const { data: photos } = useSuspenseQuery({
+  const { data } = useSuspenseInfiniteQuery({
     queryKey: ['photos'],
-    queryFn: () => imageService.getPhotos(),
+    queryFn: ({ pageParam }) => imageService.getPhotosPaginated(pageParam, 50),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      return lastPage.length === 50 ? lastPageParam + 1 : undefined
+    },
   })
 
-  console.log(photos)
+  // Flatten all pages into a single array for PhotoGrid
+  const photos = data.pages.flat()
 
   return (
-    <div className="text-center">
-      <header className="min-h-screen flex flex-col items-center justify-center bg-[#282c34] text-white text-[calc(10px+2vmin)]">
-        <img
-          src={logo}
-          className="h-[40vmin] pointer-events-none animate-[spin_20s_linear_infinite]"
-          alt="logo"
-        />
-        <p>
-          Edit <code>src/routes/index.tsx</code> and save to reload.
-        </p>
-        <a
-          className="text-[#61dafb] hover:underline"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <a
-          className="text-[#61dafb] hover:underline"
-          href="https://tanstack.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn TanStack
-        </a>
-      </header>
-    </div>
+    <PhotoGrid photoList={photos}/>
   )
 }
