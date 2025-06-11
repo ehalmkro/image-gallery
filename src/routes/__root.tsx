@@ -22,4 +22,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       <TanStackQueryLayout />
     </>
   ),
+  errorComponent: ({ error }) => (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-center">
+        <h1 className="text-xl font-bold mb-2">Something went wrong</h1>
+        <p className="text-gray-600">{error.message}</p>
+      </div>
+    </div>
+  ),
 })
