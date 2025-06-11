@@ -1,6 +1,16 @@
-Welcome to your new TanStack app! 
+A simple photo gallery app using [Tanstack](https://tanstack.com). Fetches a list of photos from [JSON Placeholder API](https://jsonplaceholder.typicode.com) and uses the API's ids to get working photo URLs from [Picsum](https://picsum.photos/). 
+
+The app uses TanStack Router for navigation and TanStack Query for data fetching with infinite queries for "Load More" pagination. It also pre-caches individual photos when loading the grid for faster detail page loading. 
 
 # Getting Started
+
+
+First, create a `.env` file in the root directory with the variables seen on .env.example:
+
+```bash
+VITE_JSON_PLACEHOLDER_URL=https://jsonplaceholder.typicode.com
+VITE_PICSUM_URL=https://picsum.photos/
+```
 
 To run this application:
 
