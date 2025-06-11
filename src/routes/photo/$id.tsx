@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ImageService } from '../../services/image-service'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useState } from 'react'
+import { ImageService } from '../../services/image-service'
 
 export const Route = createFileRoute('/photo/$id')({
   component: PhotoDetail,
@@ -27,21 +27,23 @@ function PhotoDetail() {
               <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
             </div>
           )}
-          
+
           {imageError && (
             <div className="w-full aspect-[4/3] bg-gray-100 rounded-lg shadow-lg flex items-center justify-center">
               <div className="text-gray-400 text-center">
                 <div className="w-24 h-24 mx-auto mb-4 bg-gray-300 rounded-full flex items-center justify-center">
                   <span className="text-gray-500 text-4xl">?</span>
                 </div>
-                <h2 className="text-xl font-semibold mb-2">Image unavailable</h2>
+                <h2 className="text-xl font-semibold mb-2">
+                  Image unavailable
+                </h2>
                 <p className="text-sm">This image could not be loaded</p>
               </div>
             </div>
           )}
-          
-          <img 
-            src={photo.picsumUrl} 
+
+          <img
+            src={photo.picsumUrl}
             alt={photo.title}
             className={`w-full h-auto rounded-lg shadow-lg transition-opacity duration-300 ${
               imageLoaded && !imageError ? 'opacity-100' : 'opacity-0'
@@ -53,7 +55,7 @@ function PhotoDetail() {
             }}
           />
         </div>
-        
+
         <div className="mt-4 text-center">
           {imageLoaded ? (
             <h1 className="text-2xl italic mb-2">{photo.title}</h1>
@@ -64,4 +66,4 @@ function PhotoDetail() {
       </div>
     </div>
   )
-} 
+}
