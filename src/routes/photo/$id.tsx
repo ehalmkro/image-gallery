@@ -20,10 +20,10 @@ function PhotoDetail() {
 
   return (
     <div className="flex flex-col items-center p-8">
-      <div className="max-w-4xl w-full">
+      <div className="max-w-100 w-full">
         <div className="relative">
           {!imageLoaded && !imageError && (
-            <div className="w-full aspect-[4/3] bg-gray-200 animate-pulse rounded-lg flex items-center justify-center">
+            <div className="w-full aspect-square bg-gray-200 animate-pulse rounded-lg flex items-center justify-center">
               <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
             </div>
           )}
@@ -56,7 +56,7 @@ function PhotoDetail() {
         
         <div className="mt-4 text-center">
           {imageLoaded ? (
-            <h1 className="text-2xl font-bold mb-2">{photo.title}</h1>
+            <h1 className="text-2xl italic mb-2">{photo.title}</h1>
           ) : (
             <div className="bg-gray-200 animate-pulse h-8 w-3/4 mx-auto rounded mb-2"></div>
           )}
